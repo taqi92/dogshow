@@ -17,7 +17,9 @@ class _PreviewImageScreenState extends State<PreviewImageScreen> {
     // TODO: implement initState
     super.initState();
 
-    _dogsController.callGetRandomImageByBreed();
+    //_dogsController.callGetRandomImageByBreed();
+
+    _dogsController.callGetRandomImageBySubBreed();
   }
 
   @override
