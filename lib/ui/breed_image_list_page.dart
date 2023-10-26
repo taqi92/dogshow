@@ -1,18 +1,16 @@
-import 'package:dog_show/model/breed_image_list.dart';
 import 'package:dog_show/ui/preview_image_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controller/dogs_controller.dart';
-import 'breed_image_list_page.dart';
 
-class BreedListPage extends StatefulWidget {
-  const BreedListPage({super.key});
+class BreedImageListPage extends StatefulWidget {
+  const BreedImageListPage({super.key});
 
   @override
-  State<BreedListPage> createState() => _BreedListPageState();
+  State<BreedImageListPage> createState() => _BreedImageListPageState();
 }
 
-class _BreedListPageState extends State<BreedListPage> {
+class _BreedImageListPageState extends State<BreedImageListPage> {
   final _dogsController = Get.put(DogController());
 
   @override
@@ -20,7 +18,7 @@ class _BreedListPageState extends State<BreedListPage> {
     // TODO: implement initState
     super.initState();
 
-      _dogsController.callGetBreedList();
+      _dogsController.callGetImageListByBreed();
 
   }
 
@@ -28,7 +26,7 @@ class _BreedListPageState extends State<BreedListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dog Breeds'),
+        title: Text('Dog Breeds Images'),
       ),
       body: GetBuilder<DogController>(builder: (controller) {
         return GridView.count(
@@ -39,8 +37,8 @@ class _BreedListPageState extends State<BreedListPage> {
             childAspectRatio: 2 / 3,
             physics: const AlwaysScrollableScrollPhysics(),
             padding: EdgeInsets.zero,
-            children: List.generate(_dogsController.breedList.length, (index) {
-              var item = _dogsController.breedList[index];
+            children: List.generate(_dogsController.breedImageList.length, (index) {
+              var images = _dogsController.breedImageList[index];
               return GestureDetector(
                 onTap: () async {},
                 child: Padding(
@@ -53,24 +51,7 @@ class _BreedListPageState extends State<BreedListPage> {
                           Radius.circular(10.0),
                         ),
                       ),
-                      child: Column(
-                        children: [
-                          Text(item),
-                          TextButton(
-                              onPressed: () {
-                                //_dogsController.getBreedImages("hound");
-                                  Get.to(() => PreviewImageScreen());
-                              },
-                              child: Text("Show Random")),
-                          TextButton(
-                              onPressed: () {
-                                Get.to(() => BreedImageListPage());
-                              },
-                              child: Text("Show List by breed")),
-                          TextButton(
-                              onPressed: () {}, child: Text("Show sub-breed"))
-                        ],
-                      )),
+                      child: Image.network(images)),
                 ),
               );
             }));

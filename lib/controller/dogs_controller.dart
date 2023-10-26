@@ -5,21 +5,22 @@ import '../utils/constants.dart';
 
 class DogController extends GetxController {
 
-  late final UserRepository _userRepository;
+  late final DogRepository _dogRepository;
 
   List<String> breedList = [];
+  List<String> breedImageList = [];
 
-  late BreedModel _breedModel;
+  var image = Rxn<String?>();
 
   @override
   void onInit() {
-    _userRepository = UserRepository();
+    _dogRepository = DogRepository();
     super.onInit();
   }
 
   void callGetBreedList() {
 
-    _userRepository.getBreedModel((response, error) async {
+    _dogRepository.getBreedModel((response, error) async {
       if (response != null) {
 
         //showMessage(response.message, isToast: true);
@@ -34,11 +35,46 @@ class DogController extends GetxController {
 
         });
 
-        //breedList = _breedModel.message.keys.toList();
+
+      } else {
+        showMessage(response?.status);
+      }
+    });
+  }
+
+  void callGetRandomImageByBreed() {
+
+    _dogRepository.getRandomByBreed((response, error) async {
+      if (response != null) {
+
+        image.value = response.message;
+
+      } else {
+        showMessage(response?.status);
+      }
+    });
+  }
+
+  void callGetImageListByBreed() {
+
+    _dogRepository.getImageListByBreed((response, error) async {
+      if (response != null) {
+
+        //showMessage(response.message, isToast: true);
+
+        breedImageList = [];
+
+        response.message?.forEach((element) {
+
+          breedImageList.add(element);
+
+          update();
+
+        });
 
 
       } else {
-        //showMessage(response?.status);
+        showMessage(response?.status);
       }
     });
   }
