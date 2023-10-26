@@ -1,4 +1,5 @@
 import 'package:dog_show/ui/breed_list_page.dart';
+import 'package:dog_show/ui/test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
           elevation: 1,
         ),
       ),
-      home: BreedListPage(),
+      home: MyCard(),
     );
   }
 }

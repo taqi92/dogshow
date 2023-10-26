@@ -1,4 +1,5 @@
 import 'package:dog_show/model/breed_model.dart';
+import 'package:dog_show/utils/environment.dart';
 import 'package:get/get.dart';
 import '../repositories/user_repository.dart';
 import '../utils/constants.dart';
@@ -24,8 +25,6 @@ class DogController extends GetxController {
     _dogRepository.getBreedModel((response, error) async {
       if (response != null) {
 
-        //showMessage(response.message, isToast: true);
-
         breedList = [];
 
         response.message.keys.forEach((element) {
@@ -43,12 +42,16 @@ class DogController extends GetxController {
     });
   }
 
-  void callGetRandomImageByBreed() {
+  void callGetRandomImageByBreed(breedName) {
 
-    _dogRepository.getRandomByBreed((response, error) async {
+    var url = "/breed/$breedName/images/random";
+
+    _dogRepository.getRandomByBreed(url,(response, error) async {
       if (response != null) {
 
         image.value = response.message;
+
+        update();
 
       } else {
         showMessage(response?.status);
@@ -56,12 +59,12 @@ class DogController extends GetxController {
     });
   }
 
-  void callGetImageListByBreed() {
+  void callGetImageListByBreed(breed) {
 
-    _dogRepository.getImageListByBreed((response, error) async {
+    var url = "/breed/$breed/images";
+
+    _dogRepository.getImageListByBreed(url,(response, error) async {
       if (response != null) {
-
-        //showMessage(response.message, isToast: true);
 
         breedImageList = [];
 
@@ -80,12 +83,14 @@ class DogController extends GetxController {
     });
   }
 
-  void callGetSubBreedList() {
+  void callGetSubBreedList(String breed) {
 
-    _dogRepository.getSubBreedList((response, error) async {
+    var url = "/breed/$breed/list";
+
+    _dogRepository.getSubBreedList(url,(response, error) async {
+
+
       if (response != null) {
-
-        //showMessage(response.message, isToast: true);
 
         subBreedNameList = [];
 
@@ -104,12 +109,18 @@ class DogController extends GetxController {
     });
   }
 
-  void callGetRandomImageBySubBreed() {
+  void callGetRandomImageBySubBreed(String breed,String subBreed) {
 
-    _dogRepository.getRandomBySubBreed((response, error) async {
+    var url = "/breed/$breed/$subBreed/images/random";
+
+    image.value = "";
+
+    _dogRepository.getRandomBySubBreed(url,(response, error) async {
       if (response != null) {
 
         image.value = response.message;
+
+        update();
 
       } else {
         showMessage(response?.status);
@@ -117,12 +128,14 @@ class DogController extends GetxController {
     });
   }
 
-  void callGetImageListBySubBreed() {
+  void callGetImageListBySubBreed(String breed,String subBreed) {
 
-    _dogRepository.getImageListBySubBreed((response, error) async {
+    var url = "/breed/$breed/$subBreed/images";
+
+    _dogRepository.getImageListBySubBreed(url,(response, error) async {
+
+
       if (response != null) {
-
-        //showMessage(response.message, isToast: true);
 
         breedImageList = [];
 

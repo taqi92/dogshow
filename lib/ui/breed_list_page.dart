@@ -1,9 +1,12 @@
+import 'package:dog_show/components/text_component.dart';
 import 'package:dog_show/model/breed_image_list.dart';
 import 'package:dog_show/ui/preview_image_screen.dart';
 import 'package:dog_show/ui/sub_breed_list_page.dart';
+import 'package:dog_show/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controller/dogs_controller.dart';
+import '../utils/enums.dart';
 import 'breed_image_list_page.dart';
 
 class BreedListPage extends StatefulWidget {
@@ -21,8 +24,7 @@ class _BreedListPageState extends State<BreedListPage> {
     // TODO: implement initState
     super.initState();
 
-      _dogsController.callGetBreedList();
-
+    _dogsController.callGetBreedList();
   }
 
   @override
@@ -35,9 +37,9 @@ class _BreedListPageState extends State<BreedListPage> {
         return GridView.count(
             scrollDirection: Axis.vertical,
             crossAxisCount: 2,
-            crossAxisSpacing: 2.0,
-            mainAxisSpacing: 2.0,
-            childAspectRatio: 2 / 3,
+            crossAxisSpacing: 1.0,
+            mainAxisSpacing: 1.0,
+            childAspectRatio: 0.6 / 0.8,
             physics: const AlwaysScrollableScrollPhysics(),
             padding: EdgeInsets.zero,
             children: List.generate(_dogsController.breedList.length, (index) {
@@ -56,24 +58,45 @@ class _BreedListPageState extends State<BreedListPage> {
                       ),
                       child: Column(
                         children: [
-                          Text(item),
-                          TextButton(
-                              onPressed: () {
-                                //_dogsController.getBreedImages("hound");
-                                  Get.to(() => PreviewImageScreen());
-                              },
-                              child: Text("Show Random")),
-                          TextButton(
-                              onPressed: () {
-                                Get.to(() => BreedImageListPage());
-                              },
-                              child: Text("Show List by breed")),
-                          TextButton(
-                              onPressed: () {
-                                Get.to(() => SubBreedListPage());
-                              }, child: Text("Show sub-breed"))
+                          TextComponent(item),
+                          GestureDetector(
+                            onTap: (){
+                              Get.to(() => const PreviewImageScreen(),
+                                  arguments: [Enums.BREED, item]);
+                            },
+                            child: Chip(
+                                label: TextComponent(
+                                  "Show Random",
+                                  fontSize: k14FontSize,
+                                  padding: EdgeInsets.zero,
+                                )),
+                          ),
+                          GestureDetector(
+                            onTap: (){
+                              Get.to(() => const BreedImageListPage(),
+                                  arguments: item);
+                            },
+                            child: Chip(
+                                label: TextComponent(
+                                  "Show List by breed",
+                                  fontSize: k14FontSize,
+                                  padding: EdgeInsets.zero,
+                                )),
+                          ),
+                          GestureDetector(
+                            onTap: (){
+                              Get.to(() => const SubBreedListPage(),
+                                  arguments: item);
+                            },
+                            child: Chip(
+                                label: TextComponent(
+                                  "Show sub-breed list",
+                                  fontSize: k14FontSize,
+                                  padding: EdgeInsets.zero,
+                                )),
+                          )
                         ],
-                      )),
+                      ))
                 ),
               );
             }));

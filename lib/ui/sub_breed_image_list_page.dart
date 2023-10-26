@@ -1,7 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dog_show/ui/preview_image_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import '../controller/dogs_controller.dart';
+import '../utils/style.dart';
 
 class SubBreedImageListPage extends StatefulWidget {
   const SubBreedImageListPage({super.key});
@@ -13,13 +16,21 @@ class SubBreedImageListPage extends StatefulWidget {
 class _SubBreedImageListPageState extends State<SubBreedImageListPage> {
   final _dogsController = Get.put(DogController());
 
+  var breed,subBreed;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
-      _dogsController.callGetImageListBySubBreed();
+    if(Get.arguments != null){
 
+      breed = Get.arguments[0];
+      subBreed = Get.arguments[1];
+
+      _dogsController.callGetImageListBySubBreed(breed,subBreed);
+
+    }
   }
 
   @override
@@ -29,32 +40,51 @@ class _SubBreedImageListPageState extends State<SubBreedImageListPage> {
         title: Text('Dog sub-Breeds Images'),
       ),
       body: GetBuilder<DogController>(builder: (controller) {
-        return GridView.count(
-            scrollDirection: Axis.vertical,
-            crossAxisCount: 2,
-            crossAxisSpacing: 2.0,
-            mainAxisSpacing: 2.0,
-            childAspectRatio: 2 / 3,
-            physics: const AlwaysScrollableScrollPhysics(),
-            padding: EdgeInsets.zero,
-            children: List.generate(_dogsController.breedImageList.length, (index) {
-              var images = _dogsController.breedImageList[index];
-              return GestureDetector(
-                onTap: () async {},
-                child: Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: Card(
-                      elevation: 3,
-                      // Change this
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10.0),
-                        ),
+        return StaggeredGridView.countBuilder(
+          staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
+          mainAxisSpacing: 2,
+          crossAxisSpacing: 2,
+          crossAxisCount: 2,
+          itemCount: _dogsController.breedImageList.length,
+          itemBuilder: (context, index) {
+            var images = _dogsController.breedImageList[index];
+            return GestureDetector(
+              onTap: () async {},
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Card(
+                    elevation: 3,
+                    // Change this
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10.0),
                       ),
-                      child: Image.network(images)),
-                ),
-              );
-            }));
+                    ),
+                    child: CachedNetworkImage(
+                        imageUrl: images,
+                        progressIndicatorBuilder:
+                            (context, url,
+                            downloadProgress) =>
+                            SizedBox(
+                                height: 100,
+                                child:
+                                Padding(
+                                  padding: const EdgeInsets
+                                      .all(
+                                      16.0),
+                                  child:
+                                  Center(
+                                    child: CircularProgressIndicator(
+                                        value:
+                                        downloadProgress.progress,
+                                        color: kPrimaryColor),
+                                  ),
+                                )),
+                        fit: BoxFit.fill),),
+              ),
+            );
+          },
+        );
       }),
     );
   }

@@ -4,6 +4,7 @@ import 'package:dog_show/ui/sub_breed_image_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controller/dogs_controller.dart';
+import '../utils/enums.dart';
 import 'breed_image_list_page.dart';
 
 class SubBreedListPage extends StatefulWidget {
@@ -14,14 +15,23 @@ class SubBreedListPage extends StatefulWidget {
 }
 
 class _SubBreedListPageState extends State<SubBreedListPage> {
+
   final _dogsController = Get.put(DogController());
+  var breed;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
-      _dogsController.callGetSubBreedList();
+    if(Get.arguments != null){
+
+      breed = Get.arguments;
+      _dogsController.callGetSubBreedList(breed);
+
+    }
+
+
 
   }
 
@@ -60,12 +70,12 @@ class _SubBreedListPageState extends State<SubBreedListPage> {
                           TextButton(
                               onPressed: () {
                                 //_dogsController.getBreedImages("hound");
-                                  Get.to(() => PreviewImageScreen());
+                                  Get.to(() => PreviewImageScreen(),arguments: [Enums.SUBBREED,item,breed]);
                               },
                               child: Text("Show Random")),
                           TextButton(
                               onPressed: () {
-                                Get.to(() => SubBreedImageListPage());
+                                Get.to(() => SubBreedImageListPage(),arguments: [breed,item]);
                               },
                               child: Text("Show List by sub-breed")),
                         ],
