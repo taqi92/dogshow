@@ -1,10 +1,14 @@
+import 'package:dog_show/features/show_breed_list/presentation/controllers/breed_images_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../domain/entities/breed.dart';
 import '../controllers/breed_controller.dart';
+import 'breed_random_images_page.dart';
 
 class BreedListPage extends StatelessWidget {
   final BreedListController controller = Get.find();
+  final BreedImagesController _breedImagesController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -69,9 +73,19 @@ class BreedListPage extends StatelessWidget {
                         child: Column(
                           children: [
                             Text(item.name),
-                            TextButton(onPressed: (){}, child: Text("Show Random")),
-                            TextButton(onPressed: (){}, child: Text("Show List by breed")),
-                            TextButton(onPressed: (){}, child: Text("Show sub-breed"))
+                            TextButton(
+                                onPressed: () {
+                                  _breedImagesController
+                                      .getBreedImages("hound");
+                                  Get.to(() =>
+                                      BreedImagesPage(breed: Breed("hound")));
+                                },
+                                child: Text("Show Random")),
+                            TextButton(
+                                onPressed: () {},
+                                child: Text("Show List by breed")),
+                            TextButton(
+                                onPressed: () {}, child: Text("Show sub-breed"))
                           ],
                         )),
                   ),

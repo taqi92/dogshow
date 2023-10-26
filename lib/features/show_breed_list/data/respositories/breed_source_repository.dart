@@ -1,5 +1,9 @@
 
 
+import 'dart:developer';
+
+import 'package:dog_show/features/show_breed_list/domain/entities/image.dart';
+
 import '../../domain/entities/breed.dart';
 import '../../domain/repositories/breed_repository.dart';
 import '../data_sources/remote_data_source.dart';
@@ -31,4 +35,18 @@ class BreedRepositoryImpl implements BreedRepository {
       throw Exception('Failed to fetch breed list: $e');
     }
   }
+
+  @override
+  Future<String> getBreedImage(String breed) async {
+    try {
+      final imageUrl = await dataSource.getBreedImage(breed);
+
+      log("val 2 " + imageUrl);
+
+      return imageUrl;
+    } catch (e) {
+      throw Exception('Failed to fetch breed image: $e');
+    }
+  }
+
 }

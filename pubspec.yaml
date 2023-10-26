@@ -14,7 +14,9 @@ dependencies:
   cupertino_icons: ^1.0.2
 
   get: ^4.6.6
-  http: ^1.1.0
+
+  connectivity_plus: ^2.0.3
+  flutter_easyloading: ^3.0.3
 
   #chached image
   cached_network_image: ^3.2.0

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 
 import '../models/breed_model.dart';
@@ -17,6 +19,28 @@ class RemoteBreedDataSource {
       }
     } catch (e) {
       throw Exception('Failed to load breed list: $e');
+    }
+  }
+
+
+  Future<String> getBreedImage(String breed) async {
+    try {
+      final response = await _dio.get("https://dog.ceo/api/breed/$breed/images/random");
+      log("code" + response.statusCode.toString());
+      if (response.statusCode == 200) {
+
+        log(response.data["message"]);
+
+        return response.data["message"];
+      } else {
+        log("Error: Status Code ${response.statusCode}");
+        log("Response: ${response.data}");
+        throw Exception('Failed to load breed image');
+      }
+    } catch (e) {
+      log("Error: $e");
+
+      throw Exception('Failed to load breed image: $e');
     }
   }
 }
