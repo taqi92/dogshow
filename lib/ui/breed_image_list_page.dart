@@ -45,9 +45,9 @@ class _BreedImageListPageState extends BaseState<BreedImageListPage> {
               mainAxisSpacing: 2,
               crossAxisSpacing: 2,
               crossAxisCount: kIsWeb ? 4 : 2,
-              itemCount: _dogsController.breedImageList.length,
+              itemCount: _dogsController.state?.breedImageList.length,
               itemBuilder: (context, index) {
-                var images = _dogsController.breedImageList[index];
+                var images = _dogsController.state?.breedImageList[index];
                 return GestureDetector(
                   onTap: () async {
                     Get.to(() => PreviewImageScreen(), arguments: images);
@@ -63,7 +63,7 @@ class _BreedImageListPageState extends BaseState<BreedImageListPage> {
                           ),
                         ),
                         child: CachedNetworkImage(
-                            imageUrl: images,
+                            imageUrl: images ?? "",
                             progressIndicatorBuilder:
                                 (context, url, downloadProgress) => SizedBox(
                                     height: kIsWeb ? 300 : 100,

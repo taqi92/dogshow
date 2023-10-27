@@ -43,7 +43,7 @@ class _SubBreedListPageState extends BaseState<SubBreedListPage> {
         ),
         body: HeaderComponent(
           GetBuilder<DogController>(builder: (controller) {
-            return _dogsController.subBreedNameList.isEmpty
+            return _dogsController.state!.subBreedNameList.isEmpty
                 ? const Center(child: TextComponent("No breeds to show"))
                 : kIsWeb ? GridView.count(
                     scrollDirection: Axis.vertical,
@@ -54,8 +54,8 @@ class _SubBreedListPageState extends BaseState<SubBreedListPage> {
                     physics: const AlwaysScrollableScrollPhysics(),
                     padding: EdgeInsets.zero,
                     children: List.generate(
-                        _dogsController.subBreedNameList.length, (index) {
-                      var item = _dogsController.subBreedNameList[index];
+                        _dogsController.state!.subBreedNameList.length, (index) {
+                      var item = _dogsController.state!.subBreedNameList[index];
                       return Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: Container(
@@ -136,8 +136,8 @@ class _SubBreedListPageState extends BaseState<SubBreedListPage> {
                 physics: const AlwaysScrollableScrollPhysics(),
                 padding: EdgeInsets.zero,
                 children: List.generate(
-                    _dogsController.subBreedNameList.length, (index) {
-                  var item = _dogsController.subBreedNameList[index];
+                    _dogsController.state!.subBreedNameList.length, (index) {
+                  var item = _dogsController.state!.subBreedNameList[index];
                   return Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: Container(

@@ -28,7 +28,7 @@ class _SplashScreenState extends BaseState<SplashScreen> {
         // Internet Present Case
 
         Future.delayed(const Duration(milliseconds: 2000), () {
-          Get.offAll(() => const BreedListPage(), transition: sendTransition);
+          Get.offAll(() =>  BreedListPage(), transition: sendTransition);
         });
       } else {
         // No-Internet Case
