@@ -59,7 +59,7 @@ abstract class BaseState<T extends StatefulWidget> extends State<T> {
                 padding: EdgeInsets.all(8.0),
                 child: Icon(
                   Icons.arrow_back_outlined,
-                  color: kPrimaryColor,
+                  color: Colors.white,
                 ),
               ),
             )

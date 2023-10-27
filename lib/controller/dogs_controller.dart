@@ -10,7 +10,6 @@ abstract class DogRepositoryInterface {
 }
 
 class DogController extends GetxController {
-
   late final DogRepository _dogRepository;
 
   List<String> breedList = [];
@@ -19,29 +18,33 @@ class DogController extends GetxController {
 
   var image = Rxn<String?>();
 
+  // Track the loading and loaded states
+  bool isLoading = false;
+  bool isLoaded = false;
+
   @override
   void onInit() {
     _dogRepository = DogRepository();
     super.onInit();
   }
 
-
   void callGetBreedList() {
+
+    isLoading = true;
 
     _dogRepository.getBreedModel((response, error) async {
       if (response != null) {
 
+        isLoading = false;
+        isLoaded = true;
+
         breedList = [];
 
         response.message.keys.forEach((element) {
-
           breedList.add(element);
 
           update();
-
         });
-
-
       } else {
         showMessage(response?.status);
       }
@@ -49,16 +52,19 @@ class DogController extends GetxController {
   }
 
   void callGetRandomImageByBreed(breedName) {
-
     var url = "/breed/$breedName/images/random";
 
-    _dogRepository.getRandomByBreed(url,(response, error) async {
-      if (response != null) {
+    isLoading = true;
 
+    _dogRepository.getRandomByBreed(url, (response, error) async {
+
+      isLoading = false;
+      isLoaded = true;
+
+      if (response != null) {
         image.value = response.message;
 
         update();
-
       } else {
         showMessage(response?.status);
       }
@@ -66,23 +72,23 @@ class DogController extends GetxController {
   }
 
   void callGetImageListByBreed(breed) {
-
     var url = "/breed/$breed/images";
 
-    _dogRepository.getImageListByBreed(url,(response, error) async {
-      if (response != null) {
+    isLoading = true;
 
+    _dogRepository.getImageListByBreed(url, (response, error) async {
+
+      isLoading = false;
+      isLoaded = true;
+
+      if (response != null) {
         breedImageList = [];
 
         response.message?.forEach((element) {
-
           breedImageList.add(element);
 
           update();
-
         });
-
-
       } else {
         showMessage(response?.status);
       }
@@ -90,70 +96,68 @@ class DogController extends GetxController {
   }
 
   void callGetSubBreedList(String breed) {
-
     var url = "/breed/$breed/list";
 
-    _dogRepository.getSubBreedList(url,(response, error) async {
+    isLoading = true;
 
+    _dogRepository.getSubBreedList(url, (response, error) async {
+
+      isLoading = false;
+      isLoaded = true;
 
       if (response != null) {
-
         subBreedNameList = [];
 
         response.message?.forEach((element) {
-
           subBreedNameList.add(element);
 
           update();
-
         });
-
-
       } else {
         showMessage(response?.status);
       }
     });
   }
 
-  void callGetRandomImageBySubBreed(String breed,String subBreed) {
-
+  void callGetRandomImageBySubBreed(String breed, String subBreed) {
     var url = "/breed/$breed/$subBreed/images/random";
 
     image.value = "";
+    isLoading = true;
 
-    _dogRepository.getRandomBySubBreed(url,(response, error) async {
+    _dogRepository.getRandomBySubBreed(url, (response, error) async {
+
+      isLoading = false;
+      isLoaded = true;
+
       if (response != null) {
-
         image.value = response.message;
 
         update();
-
       } else {
         showMessage(response?.status);
       }
     });
   }
 
-  void callGetImageListBySubBreed(String breed,String subBreed) {
-
+  void callGetImageListBySubBreed(String breed, String subBreed) {
     var url = "/breed/$breed/$subBreed/images";
 
-    _dogRepository.getImageListBySubBreed(url,(response, error) async {
+    isLoading = true;
 
+    _dogRepository.getImageListBySubBreed(url, (response, error) async {
+
+      isLoading = false;
+      isLoaded = true;
 
       if (response != null) {
-
         breedImageList = [];
 
         response.message?.forEach((element) {
-
           breedImageList.add(element);
 
           update();
-
         });
-
-
       } else {
         showMessage(response?.status);
       }
