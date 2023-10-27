@@ -32,7 +32,7 @@ const kSmallerLetterSpacing = 0.0;
 
 const kFontRadius = 8.0;
 
-const kPrimaryColor = Color(0xFFD51F26);
+const kPrimaryColor = Color(0xFFa52a2a);
 const kPrimaryLightColor = Color(0x1AD93D14);
 const kPreliminaryColor = Color(0xFF0B695E);
 const kTextColor = Color(0xFF212431);

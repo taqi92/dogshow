@@ -136,8 +136,6 @@ class ApiClient {
         RequestOptions? requestOptions = errorResponse?.requestOptions;
 
         if (errorResponse?.statusCode == 403) {
-          _dio.interceptors.requestLock.lock();
-          _dio.interceptors.responseLock.lock();
 
           try {
             var newDio = Dio();

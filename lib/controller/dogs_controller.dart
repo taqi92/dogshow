@@ -4,6 +4,11 @@ import 'package:get/get.dart';
 import '../repositories/user_repository.dart';
 import '../utils/constants.dart';
 
+abstract class DogRepositoryInterface {
+  void getBreedModel();
+//... other methods like getRandomByBreed, getImageListByBreed etc...
+}
+
 class DogController extends GetxController {
 
   late final DogRepository _dogRepository;
@@ -19,6 +24,7 @@ class DogController extends GetxController {
     _dogRepository = DogRepository();
     super.onInit();
   }
+
 
   void callGetBreedList() {
 

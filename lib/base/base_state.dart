@@ -8,17 +8,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 
-
-
 abstract class BaseState<T extends StatefulWidget> extends State<T> {
-
-
   Text? _getTitle(String? title, bool isTranslatable) {
     if (title != null && title != "") {
       var textStyle = GoogleFonts.getFont(
         primaryFont,
         fontWeight: titleFontWeight,
-        color: kTextColor,
+        color: Colors.white,
         fontSize: titleFontSize,
       );
 
@@ -52,21 +48,21 @@ abstract class BaseState<T extends StatefulWidget> extends State<T> {
       iconTheme: const IconThemeData(color: kPrimaryColor),
       centerTitle: isCenterTitle,
       title: _getTitle(title, isTranslatable),
-      backgroundColor: Colors.transparent,
+      backgroundColor: kPrimaryColor,
       shadowColor: Colors.transparent,
       leading: isNavigate
           ? GestureDetector(
-        onTap: () {
-          Get.back();
-        },
-        child: const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Icon(
-            Icons.arrow_back_outlined,
-            color: kPrimaryColor,
-          ),
-        ),
-      )
+              onTap: () {
+                Get.back();
+              },
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Icon(
+                  Icons.arrow_back_outlined,
+                  color: kPrimaryColor,
+                ),
+              ),
+            )
           : null,
       actions: actions,
     );
@@ -94,7 +90,7 @@ abstract class BaseState<T extends StatefulWidget> extends State<T> {
     return false;
   }
 
-  /*Widget noDataFoundWidget({
+/*Widget noDataFoundWidget({
     String? assetName,
     String? message,
     double divider = 1,
