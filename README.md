@@ -30,7 +30,7 @@ Flutter has been used for developing the application
 
 # Architecture
 
-I have used MVVM for the whole project. Didn't implement clean architecture cause the application is simple, implementing clean architecture seems over-engineering & will lead to complexity in maintaining. Though I tried to follow SOLID principles. 
+I have used MVVM for the whole project. Didn't implement clean architecture cause the application is simple, implementing clean architecture seems over-engineering & will lead to complexity in maintaining. Though I tried to follow SOLID principles. For state management, i have used Getx. Bloc can also be used but for smaller project, Getx is good in terms of simplicity.  
 
 # Scope of improvements
 
