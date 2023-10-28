@@ -7,10 +7,9 @@ import '../utils/constants.dart';
 
 abstract class DogRepositoryInterface {
   void getBreedModel();
-//... other methods like getRandomByBreed, getImageListByBreed etc...
 }
 
-/*class DogController extends GetxController {
+class DogController extends GetxController {
   late final DogRepository _dogRepository;
 
   List<String> breedList = [];
@@ -56,6 +55,7 @@ abstract class DogRepositoryInterface {
     var url = "/breed/$breedName/images/random";
 
     isLoading = true;
+    image.value = "";
 
     _dogRepository.getRandomByBreed(url, (response, error) async {
 
@@ -106,8 +106,9 @@ abstract class DogRepositoryInterface {
       isLoading = false;
       isLoaded = true;
 
+      subBreedNameList = [];
+
       if (response != null) {
-        subBreedNameList = [];
 
         response.message?.forEach((element) {
           subBreedNameList.add(element);
@@ -159,114 +160,6 @@ abstract class DogRepositoryInterface {
 
           update();
         });
-      } else {
-        showMessage(response?.status);
-      }
-    });
-  }
-}*/
-
-class DogController extends GetxController with StateMixin<DogModel> {
-
-  late final DogRepository _dogRepository;
-  var model;
-
-  @override
-  void onInit() {
-    _dogRepository = DogRepository();
-    super.onInit();
-
-    model = DogModel();
-
-    // Initialize the state variable
-    change(DogModel(), status: RxStatus.loading());
-
-  }
-
-  // Methods to update the state variable
-  void updateBreedList(List<String> breedList) {
-    change(DogModel(breedList: breedList), status: RxStatus.success());
-  }
-
-  void updateBreedImageList(List<String> breedImageList) {
-    change(DogModel(breedImageList: breedImageList), status: RxStatus.success());
-  }
-
-  void updateSubBreedNameList(List<String> subBreedNameList) {
-    change(DogModel(subBreedNameList: subBreedNameList), status: RxStatus.success());
-  }
-
-  void updateImage(String? image) {
-    change(DogModel(image: image), status: RxStatus.success());
-  }
-
-  // Methods to call the API
-  void callGetBreedList() {
-    _dogRepository.getBreedModel((response, error) async {
-      if (response != null) {
-        updateBreedList(response.message.keys.toList());
-      } else {
-        showMessage(response?.status);
-      }
-    });
-  }
-
-  void callGetRandomImageByBreed(breedName) {
-    var url = "/breed/$breedName/images/random";
-
-    _dogRepository.getRandomByBreed(url, (response, error) async {
-      if (response != null) {
-        updateImage(response.message);
-      } else {
-        showMessage(response?.status);
-      }
-    });
-  }
-
-  void callGetImageListByBreed(breed) {
-    var url = "/breed/$breed/images";
-
-    _dogRepository.getImageListByBreed(url, (response, error) async {
-      if (response != null) {
-        updateBreedImageList(response.message?.toList() ?? []);
-      } else {
-        showMessage(response?.status);
-      }
-    });
-  }
-
-  void callGetSubBreedList(String breed) {
-    var url = "/breed/$breed/list";
-
-    _dogRepository.getSubBreedList(url, (response, error) async {
-      if (response != null) {
-        updateSubBreedNameList(response.message?.toList() ?? []);
-      } else {
-        showMessage(response?.status);
-      }
-    });
-  }
-
-  void callGetRandomImageBySubBreed(String breed, String subBreed) {
-    var url = "/breed/$breed/$subBreed/images/random";
-
-    //image.value = "";
-
-    _dogRepository.getRandomBySubBreed(url, (response, error) async {
-      if (response != null) {
-        updateImage(response.message);
-      } else {
-        showMessage(response?.status);
-      }
-    });
-  }
-
-  void callGetImageListBySubBreed(String breed, String subBreed) {
-    var url = "/breed/$breed/$subBreed/images";
-
-    _dogRepository.getImageListBySubBreed(url, (response, error) async {
-      if (response != null) {
-        updateBreedImageList(response.message?.toList() ?? []);
       } else {
         showMessage(response?.status);
       }

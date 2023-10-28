@@ -14,7 +14,7 @@ import '../controller/dogs_controller.dart';
 import '../utils/enums.dart';
 import 'breed_image_list_page.dart';
 
-/*class BreedListPage extends StatefulWidget {
+class BreedListPage extends StatefulWidget {
   const BreedListPage({super.key});
 
   @override
@@ -35,12 +35,12 @@ class _BreedListPageState extends BaseState<BreedListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: myAppBar(title: "Breed List", isNavigate: false),
+        appBar: myAppBar(title: "breed_list", isNavigate: false,isTranslatable: true),
         backgroundColor: kPrimaryColor,
         body: HeaderComponent(
           GetBuilder<DogController>(builder: (controller) {
             if (controller.isLoading) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             } else if (controller.isLoaded) {
               return kIsWeb
                   ? GridView.count(
@@ -60,8 +60,8 @@ class _BreedListPageState extends BaseState<BreedListPage> {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(16.0),
                                 gradient: const LinearGradient(colors: [
-                                  Color(0xFFb87333),
-                                  Color(0xFF8a3324)
+                                  gradientColor1,
+                                  gradientColor2
                                 ] //[Colors.blue, Colors.green],
                                     ),
                               ),
@@ -74,6 +74,7 @@ class _BreedListPageState extends BaseState<BreedListPage> {
                                     fontSize: largestFontSize,
                                     fontWeight: boldFontWeight,
                                     textAlign: TextAlign.center,
+                                    isTranslatable: false,
                                   ),
                                   GestureDetector(
                                     onTap: () {
@@ -82,7 +83,7 @@ class _BreedListPageState extends BaseState<BreedListPage> {
                                     },
                                     child: const Chip(
                                       label: TextComponent(
-                                        "Show Random",
+                                        "show_random",
                                         fontSize: k20TitleFontSize,
                                         padding: EdgeInsets.zero,
                                         color: Colors.white,
@@ -104,7 +105,7 @@ class _BreedListPageState extends BaseState<BreedListPage> {
                                     },
                                     child: const Chip(
                                       label: TextComponent(
-                                        "Show List by breed",
+                                        "show_list_by_breed",
                                         fontSize: k20TitleFontSize,
                                         padding: EdgeInsets.zero,
                                         color: Colors.white,
@@ -126,7 +127,7 @@ class _BreedListPageState extends BaseState<BreedListPage> {
                                     },
                                     child: const Chip(
                                       label: TextComponent(
-                                        "Show sub-breed list",
+                                        "show_sub_breed",
                                         fontSize: k20TitleFontSize,
                                         padding: EdgeInsets.zero,
                                         color: Colors.white,
@@ -159,8 +160,8 @@ class _BreedListPageState extends BaseState<BreedListPage> {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(16.0),
                                 gradient: const LinearGradient(colors: [
-                                  Color(0xFFb87333),
-                                  Color(0xFF8a3324)
+                                  gradientColor1,
+                                  gradientColor2
                                 ] //[Colors.blue, Colors.green],
                                     ),
                               ),
@@ -172,6 +173,7 @@ class _BreedListPageState extends BaseState<BreedListPage> {
                                     color: Colors.white,
                                     fontWeight: boldFontWeight,
                                     textAlign: TextAlign.center,
+                                    isTranslatable: false,
                                   ),
                                   GestureDetector(
                                     onTap: () {
@@ -180,7 +182,7 @@ class _BreedListPageState extends BaseState<BreedListPage> {
                                     },
                                     child: const Chip(
                                       label: TextComponent(
-                                        "Show Random",
+                                        "show_random",
                                         fontSize: k14FontSize,
                                         padding: EdgeInsets.zero,
                                         color: Colors.white,
@@ -199,7 +201,7 @@ class _BreedListPageState extends BaseState<BreedListPage> {
                                     },
                                     child: const Chip(
                                       label: TextComponent(
-                                        "Show List by breed",
+                                        "show_list_by_breed",
                                         fontSize: k14FontSize,
                                         padding: EdgeInsets.zero,
                                         color: Colors.white,
@@ -218,7 +220,7 @@ class _BreedListPageState extends BaseState<BreedListPage> {
                                     },
                                     child: const Chip(
                                       label: TextComponent(
-                                        "Show sub-breed list",
+                                        "show_sub_breed",
                                         fontSize: k14FontSize,
                                         padding: EdgeInsets.zero,
                                         color: Colors.white,
@@ -239,221 +241,5 @@ class _BreedListPageState extends BaseState<BreedListPage> {
             }
           }),
         ));
-  }
-}*/
-
-class BreedListPage extends StatelessWidget {
-  BreedListPage({super.key});
-
-  final _dogsController = Get.put(DogController());
-
-  @override
-  Widget build(BuildContext context) {
-
-    _dogsController.callGetBreedList();
-
-    return Scaffold(
-      //appBar: AppBar(title: "Breed List", isNavigate: false),
-      backgroundColor: kPrimaryColor,
-      body: HeaderComponent(
-        _dogsController.obx(
-          (state) => kIsWeb
-              ? GridView.count(
-                  scrollDirection: Axis.vertical,
-                  crossAxisCount: 5,
-                  crossAxisSpacing: 1.0,
-                  mainAxisSpacing: 1.0,
-                  childAspectRatio: 0.6 / 0.8,
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  padding: EdgeInsets.zero,
-                  children:
-                      List.generate(_dogsController.state!.breedList.length, (index) {
-                    var item = _dogsController.state!.breedList[index];
-                    return Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16.0),
-                            gradient: const LinearGradient(colors: [
-                              Color(0xFFb87333),
-                              Color(0xFF8a3324)
-                            ] //[Colors.blue, Colors.green],
-                                ),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              TextComponent(
-                                item.toUpperCase(),
-                                color: Colors.white,
-                                fontSize: largestFontSize,
-                                fontWeight: boldFontWeight,
-                                textAlign: TextAlign.center,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  Get.to(() => const PreviewImageScreen(),
-                                      arguments: [Enums.BREED, item]);
-                                },
-                                child: const Chip(
-                                  label: TextComponent(
-                                    "Show Random",
-                                    fontSize: k20TitleFontSize,
-                                    padding: EdgeInsets.zero,
-                                    color: Colors.white,
-                                    fontWeight: titleFontWeight,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  padding: EdgeInsets.zero,
-                                  visualDensity: VisualDensity.compact,
-                                  backgroundColor: Colors.green,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 16.0,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  Get.to(() => const BreedImageListPage(),
-                                      arguments: item);
-                                },
-                                child: const Chip(
-                                  label: TextComponent(
-                                    "Show List by breed",
-                                    fontSize: k20TitleFontSize,
-                                    padding: EdgeInsets.zero,
-                                    color: Colors.white,
-                                    fontWeight: titleFontWeight,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  padding: EdgeInsets.zero,
-                                  visualDensity: VisualDensity.compact,
-                                  backgroundColor: Colors.blueGrey,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 16.0,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  Get.to(() => const SubBreedListPage(),
-                                      arguments: item);
-                                },
-                                child: const Chip(
-                                  label: TextComponent(
-                                    "Show sub-breed list",
-                                    fontSize: k20TitleFontSize,
-                                    padding: EdgeInsets.zero,
-                                    color: Colors.white,
-                                    fontWeight: titleFontWeight,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  padding: EdgeInsets.zero,
-                                  visualDensity: VisualDensity.compact,
-                                  backgroundColor: Colors.blueAccent,
-                                ),
-                              )
-                            ],
-                          ),
-                        ));
-                  }))
-              : GridView.count (
-                  scrollDirection: Axis.vertical,
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 1.0,
-                  mainAxisSpacing: 1.0,
-                  childAspectRatio: 0.6 / 0.8,
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  padding: EdgeInsets.zero,
-                  children:
-                      List.generate(_dogsController.state!.breedList.length, (index) {
-                    var item = _dogsController.state!.breedList[index];
-                    return Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16.0),
-                            gradient: const LinearGradient(colors: [
-                              Color(0xFFb87333),
-                              Color(0xFF8a3324)
-                            ] //[Colors.blue, Colors.green],
-                                ),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              TextComponent(
-                                item.toUpperCase(),
-                                color: Colors.white,
-                                fontWeight: boldFontWeight,
-                                textAlign: TextAlign.center,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  Get.to(() => const PreviewImageScreen(),
-                                      arguments: [Enums.BREED, item]);
-                                },
-                                child: const Chip(
-                                  label: TextComponent(
-                                    "Show Random",
-                                    fontSize: k14FontSize,
-                                    padding: EdgeInsets.zero,
-                                    color: Colors.white,
-                                    fontWeight: titleFontWeight,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  padding: EdgeInsets.zero,
-                                  visualDensity: VisualDensity.compact,
-                                  backgroundColor: Colors.green,
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  Get.to(() => const BreedImageListPage(),
-                                      arguments: item);
-                                },
-                                child: const Chip(
-                                  label: TextComponent(
-                                    "Show List by breed",
-                                    fontSize: k14FontSize,
-                                    padding: EdgeInsets.zero,
-                                    color: Colors.white,
-                                    fontWeight: titleFontWeight,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  padding: EdgeInsets.zero,
-                                  visualDensity: VisualDensity.compact,
-                                  backgroundColor: Colors.blueGrey,
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  Get.to(() => const SubBreedListPage(),
-                                      arguments: item);
-                                },
-                                child: const Chip(
-                                  label: TextComponent(
-                                    "Show sub-breed list",
-                                    fontSize: k14FontSize,
-                                    padding: EdgeInsets.zero,
-                                    color: Colors.white,
-                                    fontWeight: titleFontWeight,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  padding: EdgeInsets.zero,
-                                  visualDensity: VisualDensity.compact,
-                                  backgroundColor: Colors.blueAccent,
-                                ),
-                              )
-                            ],
-                          ),
-                        ));
-                  })),
-          onLoading: Center(child: CircularProgressIndicator()),
-          onEmpty: TextComponent('No data found'),
-          onError: (error) => TextComponent("Error: $error"),
-        ),
-      ),
-    );
   }
 }

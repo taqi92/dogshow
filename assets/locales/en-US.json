@@ -1,28 +1,11 @@
 {
-  "welcome_text": "Welcome!",
-  "season_2": "Season 2",
-  "live": "Live Concert",
-  "powered_by": "Powered by\n© 2023 COCA-COLA BANGLADESH LTD. ALL RIGHTS RESERVED.",
-  "app_intro": "To the Coke Studio Bangla\nseason 2 live concert ticket verify\nsystem.",
-  "enter_phone":"Your Mobile Number",
-  "sent_otp_msg": "We just send you an OTP to your\nmobile number",
-  "enter_otp": "Enter OTP",
-  "change_number": "Change Number",
-  "expire_in": "Expire in ",
-  "proceed": "Proceed",
-  "data_collection": "Data Collection",
-  "scan_qr": "Scan QR",
-  "data_sync_msg": "Please wait until your all user data loaded to your system. After that you will get QR scan option. Do not close the app.",
-  "total": "Total",
-  "ticket_scanned": "Ticket Verified",
-  "successful": "Successful",
-  "failed": "Failed",
-  "already_used": "Already Used",
-  "qr_success": "QR Success",
-  "qr_failed": "QR Failed",
-  "verify_success": "Verify Success",
-  "invalid_qr": "Invalid QR",
-  "used_qr": "Used QR"
+  "breed_list": "Breed List",
+  "show_random": "Show Random",
+  "show_list_by_breed": "Show List by breed",
+  "show_sub_breed": "Show sub-breed list",
+  "images_by_breed": "Images by Breed",
+  "dog_sub_breeds":"Dog Sub Breeds",
+  "list_by_sub_breed": "List by sub-breed"
 
 
 

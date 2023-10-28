@@ -32,7 +32,7 @@ const kSmallerLetterSpacing = 0.0;
 
 const kFontRadius = 8.0;
 
-const kPrimaryColor = Color(0xFFa52a2a);
+const kPrimaryColor = Color(0xFF422311);
 const kPrimaryLightColor = Color(0x1AD93D14);
 const kPreliminaryColor = Color(0xFF0B695E);
 const kTextColor = Color(0xFF212431);
@@ -41,8 +41,8 @@ const kDisabledTextColor = Color(0xFF485668);
 const kGrayColor = Color(0xFFDEDEDE);
 const kErrorColor = Color(0xFFD51F26);
 const kSuccessfulColor = Color(0xFF008216);
-const gradientColor1 = Color(0xFFD51f26);
-const gradientColor2 = Color(0xFFF55e36);
+const gradientColor1 = Color(0xFFEE964d);
+const gradientColor2 = Color(0xFFc1ba54);
 const kWhiteColor = Color(0xFFFFFFFF);
 const kDisabledButtonColor = Color(0xFF808D9E);
 const kDividerColor = Color(0x50DCDDDE);
@@ -59,19 +59,3 @@ const kFadedSmallTextStyle = TextStyle(
     fontFamily: 'Inter',
     fontSize: 13);
 
-
-const MaterialColor colorDarkBlueMaterial = MaterialColor(
-  0xff071B5D,
-  <int, Color>{
-    50: Color(0xff019CCC),
-    100: Color(0xff019CCC),
-    200: Color(0xff019CCC),
-    300: Color(0xff019CCC),
-    400: Color(0xff019CCC),
-    500: Color(0xff019CCC),
-    600: Color(0xff019CCC),
-    700: Color(0xff019CCC),
-    800: Color(0xff019CCC),
-    900: Color(0xff019CCC),
-  },
-);

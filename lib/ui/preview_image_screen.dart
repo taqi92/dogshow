@@ -28,7 +28,7 @@ class _PreviewImageScreenState extends BaseState<PreviewImageScreen> {
   void initState() {
     // TODO: implement initState
 
-    //imageUrl = _dogsController.image;
+    imageUrl = _dogsController.image;
 
     super.initState();
 
@@ -57,7 +57,7 @@ class _PreviewImageScreenState extends BaseState<PreviewImageScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: myAppBar(title: "Image Preview"),
-      body: Text("")/*HeaderComponent(GetBuilder<DogController>(builder: (controller) {
+      body: HeaderComponent(GetBuilder<DogController>(builder: (controller) {
         if (controller.isLoading) {
           return const Center(child: CircularProgressIndicator());
         } else if (controller.isLoaded) {
@@ -82,10 +82,10 @@ class _PreviewImageScreenState extends BaseState<PreviewImageScreen> {
                 )
               : const Center(child: TextComponent("No Image"));
         } else {
-          return TextComponent("Error");
+          return const TextComponent("Error");
         }
       })
-      ),*/
+      ),
     );
   }
 }

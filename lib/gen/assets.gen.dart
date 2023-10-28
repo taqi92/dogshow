@@ -9,75 +9,22 @@
 
 import 'package:flutter/widgets.dart';
 
-class $AssetsIconsGen {
-  const $AssetsIconsGen();
-
-  /// File path: assets/icons/bottom-bar.svg
-  String get bottomBar => 'assets/icons/bottom-bar.svg';
-
-  /// File path: assets/icons/btn-home.svg
-  String get btnHome => 'assets/icons/btn-home.svg';
-
-  /// File path: assets/icons/btn-qr-code.svg
-  String get btnQrCode => 'assets/icons/btn-qr-code.svg';
-
-  /// File path: assets/icons/duplicate.svg
-  String get duplicate => 'assets/icons/duplicate.svg';
-
-  /// File path: assets/icons/failed.svg
-  String get failed => 'assets/icons/failed.svg';
-
-  /// File path: assets/icons/logo-white.svg
-  String get logoWhite => 'assets/icons/logo-white.svg';
-
-  /// File path: assets/icons/logo.svg
-  String get logo => 'assets/icons/logo.svg';
-
-  /// File path: assets/icons/qr-scan-withbg.svg
-  String get qrScanWithbg => 'assets/icons/qr-scan-withbg.svg';
-
-  /// File path: assets/icons/side-logo.svg
-  String get sideLogo => 'assets/icons/side-logo.svg';
-
-  /// File path: assets/icons/splash_logo.png
-  AssetGenImage get splashLogo =>
-      const AssetGenImage('assets/icons/splash_logo.png');
-
-  /// File path: assets/icons/success.svg
-  String get success => 'assets/icons/success.svg';
-
-  /// File path: assets/icons/top-bar.svg
-  String get topBar => 'assets/icons/top-bar.svg';
-
-  /// List of all assets
-  List<dynamic> get values => [
-        bottomBar,
-        btnHome,
-        btnQrCode,
-        duplicate,
-        failed,
-        logoWhite,
-        logo,
-        qrScanWithbg,
-        sideLogo,
-        splashLogo,
-        success,
-        topBar
-      ];
-}
-
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
   /// File path: assets/images/appLogo.png
   AssetGenImage get appLogo => const AssetGenImage('assets/images/appLogo.png');
 
+  /// File path: assets/images/no_content.png
+  AssetGenImage get noContent =>
+      const AssetGenImage('assets/images/no_content.png');
+
   /// File path: assets/images/splash_loader.gif
   AssetGenImage get splashLoader =>
       const AssetGenImage('assets/images/splash_loader.gif');
 
   /// List of all assets
-  List<AssetGenImage> get values => [appLogo, splashLoader];
+  List<AssetGenImage> get values => [appLogo, noContent, splashLoader];
 }
 
 class $AssetsLocalesGen {
@@ -93,7 +40,6 @@ class $AssetsLocalesGen {
 class Assets {
   Assets._();
 
-  static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsLocalesGen locales = $AssetsLocalesGen();
 }

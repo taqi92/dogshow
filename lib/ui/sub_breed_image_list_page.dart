@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import '../base/base_state.dart';
+import '../components/text_component.dart';
 import '../controller/dogs_controller.dart';
 import '../utils/style.dart';
 
@@ -43,20 +44,25 @@ class _SubBreedImageListPageState extends BaseState<SubBreedImageListPage> {
         ),
         body: HeaderComponent(
           GetBuilder<DogController>(builder: (controller) {
-            return StaggeredGridView.countBuilder(
-              staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
-              mainAxisSpacing: 2,
-              crossAxisSpacing: 2,
-              crossAxisCount: kIsWeb ? 4 : 2,
-              itemCount: _dogsController.state?.breedImageList.length,
-              itemBuilder: (context, index) {
-                var images = _dogsController.state?.breedImageList[index];
-                return GestureDetector(
-                  onTap: () async {
-                    Get.to(()=>PreviewImageScreen(),arguments: images);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(4.0),
+
+            if(controller.isLoading){
+
+              return Center(child: CircularProgressIndicator());
+
+            }else if(controller.isLoaded){
+
+              return MasonryGridView.count(
+                shrinkWrap: true,
+                crossAxisCount: kIsWeb ? 4 : 2,
+                mainAxisSpacing: 1,
+                crossAxisSpacing: 1,
+                itemCount: _dogsController.breedImageList.length,
+                itemBuilder: (context, index) {
+                  var images = _dogsController.breedImageList[index];
+                  return GestureDetector(
+                    onTap: () async {
+                      Get.to(()=>PreviewImageScreen(),arguments: images);
+                    },
                     child: Card(
                       elevation: 3,
                       // Change this
@@ -69,21 +75,28 @@ class _SubBreedImageListPageState extends BaseState<SubBreedImageListPage> {
                           imageUrl: images ?? "",
                           progressIndicatorBuilder:
                               (context, url, downloadProgress) => SizedBox(
-                                  height: kIsWeb ? 300 : 100,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(16.0),
-                                    child: Center(
-                                      child: CircularProgressIndicator(
-                                          value: downloadProgress.progress,
-                                          color: kPrimaryColor),
-                                    ),
-                                  )),
+                              height: kIsWeb ? 300 : 100,
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Center(
+                                  child: CircularProgressIndicator(
+                                      value: downloadProgress.progress,
+                                      color: kPrimaryColor),
+                                ),
+                              )),
                           fit: BoxFit.fill),
                     ),
-                  ),
-                );
-              },
-            );
+                  );
+                },
+              );
+
+
+            }else{
+
+              return TextComponent("Error");
+            }
+
+
           }),
         ));
   }

@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dog_show/components/header_component.dart';
+import 'package:dog_show/components/no_content_component.dart';
+import 'package:dog_show/components/text_component.dart';
 import 'package:dog_show/ui/preview_image_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -36,51 +38,62 @@ class _BreedImageListPageState extends BaseState<BreedImageListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: myAppBar(title: "Images by Breed", isNavigate: true),
+        appBar: myAppBar(title: "images_by_breed", isNavigate: true),
         backgroundColor: kPrimaryColor,
         body: HeaderComponent(
           GetBuilder<DogController>(builder: (controller) {
-            return StaggeredGridView.countBuilder(
-              staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
-              mainAxisSpacing: 2,
-              crossAxisSpacing: 2,
-              crossAxisCount: kIsWeb ? 4 : 2,
-              itemCount: _dogsController.state?.breedImageList.length,
-              itemBuilder: (context, index) {
-                var images = _dogsController.state?.breedImageList[index];
-                return GestureDetector(
-                  onTap: () async {
-                    Get.to(() => PreviewImageScreen(), arguments: images);
-                  },
-                  child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Card(
-                        elevation: 3,
-                        // Change this
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10.0),
-                          ),
+
+            if(controller.isLoading){
+
+              return Center(child: CircularProgressIndicator());
+
+            }else if(controller.isLoaded){
+
+              return MasonryGridView.count(
+                shrinkWrap: true,
+                crossAxisCount: kIsWeb ? 4 : 2,
+                mainAxisSpacing: 1,
+                crossAxisSpacing: 1,
+                itemCount: _dogsController.breedImageList.length,
+                itemBuilder: (context, index) {
+                  var images = _dogsController.breedImageList[index];
+                  return GestureDetector(
+                    onTap: () async {
+                      Get.to(() => PreviewImageScreen(), arguments: images);
+                    },
+                    child: Card(
+                      elevation: 3,
+                      // Change this
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.0),
                         ),
-                        child: CachedNetworkImage(
-                            imageUrl: images ?? "",
-                            progressIndicatorBuilder:
-                                (context, url, downloadProgress) => SizedBox(
-                                    height: kIsWeb ? 300 : 100,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child: Center(
-                                        child: CircularProgressIndicator(
-                                            value: downloadProgress.progress,
-                                            color: kPrimaryColor),
-                                      ),
-                                    )),
-                            fit: BoxFit.fill),
-                      )),
-                );
-              },
-            );
+                      ),
+                      child: CachedNetworkImage(
+                          imageUrl: images ?? "",
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) => SizedBox(
+                              height: kIsWeb ? 300 : 100,
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Center(
+                                  child: CircularProgressIndicator(
+                                      value: downloadProgress.progress,
+                                      color: kPrimaryColor),
+                                ),
+                              )),
+                          fit: BoxFit.fill),
+                    ),
+                  );
+                },
+              );
+
+            }else{
+
+              return NoContentComponent();
+            }
           }),
-        ));
+        )
+    );
   }
 }

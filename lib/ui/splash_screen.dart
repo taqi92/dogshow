@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../../base/base_state.dart';
 import '../../gen/assets.gen.dart';
@@ -41,13 +40,15 @@ class _SplashScreenState extends BaseState<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(Assets.images.appLogo.path,fit: BoxFit.fitHeight,),
-            Image.asset(Assets.images.splashLoader.path),
-          ],
+        body: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(Assets.images.appLogo.path,fit: BoxFit.fitHeight,),
+              Image.asset(Assets.images.splashLoader.path),
+            ],
+          ),
         ));
   }
 
@@ -58,7 +59,6 @@ class _SplashScreenState extends BaseState<SplashScreen> {
       ),
       onPressed: () {
         Navigator.pop(context);
-        EasyLoading.showToast("Please wait...");
 
         isInternetConnected(context).then((internet) {
           if (internet) {

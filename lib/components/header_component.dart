@@ -13,6 +13,7 @@ class HeaderComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: double.infinity,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
           color: Colors.white),
