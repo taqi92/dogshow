@@ -11,42 +11,43 @@ import '../controller/sub_breed_controller.dart';
 import '../utils/enums.dart';
 import '../utils/style.dart';
 
-class PreviewImageScreen extends StatefulWidget {
-  const PreviewImageScreen({super.key});
+class PreviewSubBreedImageScreen extends StatefulWidget {
+  const PreviewSubBreedImageScreen({super.key});
 
   @override
-  State<PreviewImageScreen> createState() => _PreviewImageScreenState();
+  State<PreviewSubBreedImageScreen> createState() => _PreviewSubBreedImageScreenState();
 }
 
-class _PreviewImageScreenState extends BaseState<PreviewImageScreen> {
-  final _breedController = Get.put(BreedController());
+class _PreviewSubBreedImageScreenState extends BaseState<PreviewSubBreedImageScreen> {
 
+  final _subBreedController = Get.put(SubBreedController());
 
   var subBreedName, breedName;
 
-  late Rxn<String?> imageUrl;
+  late Rxn<String?> subBreedImageUrl;
 
   @override
   void initState() {
     // TODO: implement initState
 
-    imageUrl = _breedController.image;
+    subBreedImageUrl = _subBreedController.image;
 
     super.initState();
 
     if (Get.arguments != null) {
-      if (Enums.BREED == Get.arguments[0]) {
-        breedName = Get.arguments[1];
-        _breedController.callGetRandomImageByBreed(breedName);
+       if (Enums.SUBBREED == Get.arguments[0]) {
+        subBreedName = Get.arguments[1];
+        breedName = Get.arguments[2];
+        _subBreedController.callGetRandomImageBySubBreed(breedName, subBreedName);
       } else {
-        imageUrl.value = Get.arguments;
+         subBreedImageUrl.value = Get.arguments;
       }
     }
   }
 
   @override
   void dispose() {
-    resetGetXValues([imageUrl]);
+    resetGetXValues([subBreedImageUrl]);
     super.dispose();
   }
 
@@ -54,8 +55,8 @@ class _PreviewImageScreenState extends BaseState<PreviewImageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: myAppBar(title: "Image Preview"),
-      body: HeaderComponent(GetBuilder<BreedController>(builder: (controller) {
+      appBar: myAppBar(title: "Sub-breed Image Preview"),
+      body: HeaderComponent(GetBuilder<SubBreedController>(builder: (controller) {
         if (controller.isLoading) {
           return const Center(child: CircularProgressIndicator());
         } else if (controller.isLoaded) {
@@ -64,7 +65,7 @@ class _PreviewImageScreenState extends BaseState<PreviewImageScreen> {
                   alignment: Alignment.topCenter,
                   child: CachedNetworkImage(
                     fit: BoxFit.fill,
-                    imageUrl: imageUrl.value!,
+                    imageUrl: subBreedImageUrl.value!,
                     progressIndicatorBuilder:
                         (context, url, downloadProgress) => SizedBox(
                             height: 200,

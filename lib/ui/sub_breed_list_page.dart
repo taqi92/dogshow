@@ -3,13 +3,14 @@ import 'package:dog_show/components/no_content_component.dart';
 import 'package:dog_show/components/text_component.dart';
 import 'package:dog_show/model/breed_image_list.dart';
 import 'package:dog_show/ui/preview_image_screen.dart';
+import 'package:dog_show/ui/preview_sub_breed_image_screen.dart';
 import 'package:dog_show/ui/sub_breed_image_list_page.dart';
 import 'package:dog_show/utils/style.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../base/base_state.dart';
-import '../controller/dogs_controller.dart';
+import '../controller/breed_controller.dart';
 import '../gen/assets.gen.dart';
 import '../utils/enums.dart';
 import 'breed_image_list_page.dart';
@@ -22,7 +23,8 @@ class SubBreedListPage extends StatefulWidget {
 }
 
 class _SubBreedListPageState extends BaseState<SubBreedListPage> {
-  final _dogsController = Get.put(DogController());
+
+  final _breedController = Get.put(BreedController());
   var breed;
 
   @override
@@ -32,7 +34,7 @@ class _SubBreedListPageState extends BaseState<SubBreedListPage> {
 
     if (Get.arguments != null) {
       breed = Get.arguments;
-      _dogsController.callGetSubBreedList(breed);
+      _breedController.callGetSubBreedList(breed);
     }
   }
 
@@ -44,8 +46,8 @@ class _SubBreedListPageState extends BaseState<SubBreedListPage> {
           title: 'dog_sub_breeds',
         ),
         body: HeaderComponent(
-          GetBuilder<DogController>(builder: (controller) {
-            return _dogsController.subBreedNameList.isEmpty
+          GetBuilder<BreedController>(builder: (controller) {
+            return _breedController.subBreedNameList.isEmpty
                 ? const NoContentComponent()
                 : kIsWeb
                     ? GridView.count(
@@ -57,8 +59,8 @@ class _SubBreedListPageState extends BaseState<SubBreedListPage> {
                         physics: const AlwaysScrollableScrollPhysics(),
                         padding: EdgeInsets.zero,
                         children: List.generate(
-                            _dogsController.subBreedNameList.length, (index) {
-                          var item = _dogsController.subBreedNameList[index];
+                            controller.subBreedNameList.length, (index) {
+                          var item = controller.subBreedNameList[index];
                           return Padding(
                             padding: const EdgeInsets.all(4.0),
                             child: Container(
@@ -140,8 +142,8 @@ class _SubBreedListPageState extends BaseState<SubBreedListPage> {
                         physics: const AlwaysScrollableScrollPhysics(),
                         padding: EdgeInsets.zero,
                         children: List.generate(
-                            _dogsController.subBreedNameList.length, (index) {
-                          var item = _dogsController.subBreedNameList[index];
+                            controller.subBreedNameList.length, (index) {
+                          var item = controller.subBreedNameList[index];
                           return Padding(
                             padding: const EdgeInsets.all(4.0),
                             child: Container(
@@ -165,7 +167,7 @@ class _SubBreedListPageState extends BaseState<SubBreedListPage> {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      Get.to(() => PreviewImageScreen(),
+                                      Get.to(() => PreviewSubBreedImageScreen(),
                                           arguments: [
                                             Enums.SUBBREED,
                                             item,
