@@ -11,7 +11,7 @@ String getBaseUrl() {
       return "https://dog.ceo/api";
 
     case Environment.PRODUCTION:
-      return "";
+      return "https://dog.ceo/api";
   }
 }
 

@@ -1,10 +1,15 @@
 import 'package:dog_show/model/breed_model.dart';
+import 'package:dog_show/utils/environment.dart';
 import 'package:get/get.dart';
+import '../model/dog_class.dart';
 import '../repositories/user_repository.dart';
 import '../utils/constants.dart';
 
-class DogController extends GetxController {
+abstract class DogRepositoryInterface {
+  void getBreedModel();
+}
 
+class DogController extends GetxController {
   late final DogRepository _dogRepository;
 
   List<String> breedList = [];
@@ -12,6 +17,10 @@ class DogController extends GetxController {
   List<String> subBreedNameList = [];
 
   var image = Rxn<String?>();
+
+  // Track the loading and loaded states
+  bool isLoading = false;
+  bool isLoaded = false;
 
   @override
   void onInit() {
@@ -21,120 +30,136 @@ class DogController extends GetxController {
 
   void callGetBreedList() {
 
+    isLoading = true;
+
     _dogRepository.getBreedModel((response, error) async {
       if (response != null) {
 
-        //showMessage(response.message, isToast: true);
+        isLoading = false;
+        isLoaded = true;
 
         breedList = [];
 
         response.message.keys.forEach((element) {
-
           breedList.add(element);
 
           update();
-
         });
-
-
       } else {
         showMessage(response?.status);
       }
     });
   }
 
-  void callGetRandomImageByBreed() {
+  void callGetRandomImageByBreed(breedName) {
+    var url = "/breed/$breedName/images/random";
 
-    _dogRepository.getRandomByBreed((response, error) async {
+    isLoading = true;
+    image.value = "";
+
+    _dogRepository.getRandomByBreed(url, (response, error) async {
+
+      isLoading = false;
+      isLoaded = true;
+
       if (response != null) {
-
         image.value = response.message;
 
+        update();
       } else {
         showMessage(response?.status);
       }
     });
   }
 
-  void callGetImageListByBreed() {
+  void callGetImageListByBreed(breed) {
+    var url = "/breed/$breed/images";
 
-    _dogRepository.getImageListByBreed((response, error) async {
+    isLoading = true;
+
+    _dogRepository.getImageListByBreed(url, (response, error) async {
+
+      isLoading = false;
+      isLoaded = true;
+
       if (response != null) {
-
-        //showMessage(response.message, isToast: true);
-
         breedImageList = [];
 
         response.message?.forEach((element) {
-
           breedImageList.add(element);
 
           update();
-
         });
-
-
       } else {
         showMessage(response?.status);
       }
     });
   }
 
-  void callGetSubBreedList() {
+  void callGetSubBreedList(String breed) {
+    var url = "/breed/$breed/list";
 
-    _dogRepository.getSubBreedList((response, error) async {
+    isLoading = true;
+
+    _dogRepository.getSubBreedList(url, (response, error) async {
+
+      isLoading = false;
+      isLoaded = true;
+
+      subBreedNameList = [];
+
       if (response != null) {
 
-        //showMessage(response.message, isToast: true);
-
-        subBreedNameList = [];
-
         response.message?.forEach((element) {
-
           subBreedNameList.add(element);
 
           update();
-
         });
-
-
       } else {
         showMessage(response?.status);
       }
     });
   }
 
-  void callGetRandomImageBySubBreed() {
+  void callGetRandomImageBySubBreed(String breed, String subBreed) {
+    var url = "/breed/$breed/$subBreed/images/random";
 
-    _dogRepository.getRandomBySubBreed((response, error) async {
+    image.value = "";
+    isLoading = true;
+
+    _dogRepository.getRandomBySubBreed(url, (response, error) async {
+
+      isLoading = false;
+      isLoaded = true;
+
       if (response != null) {
-
         image.value = response.message;
 
+        update();
       } else {
         showMessage(response?.status);
       }
     });
   }
 
-  void callGetImageListBySubBreed() {
+  void callGetImageListBySubBreed(String breed, String subBreed) {
+    var url = "/breed/$breed/$subBreed/images";
 
-    _dogRepository.getImageListBySubBreed((response, error) async {
+    isLoading = true;
+
+    _dogRepository.getImageListBySubBreed(url, (response, error) async {
+
+      isLoading = false;
+      isLoaded = true;
+
       if (response != null) {
-
-        //showMessage(response.message, isToast: true);
-
         breedImageList = [];
 
         response.message?.forEach((element) {
-
           breedImageList.add(element);
 
           update();
-
         });
-
-
       } else {
         showMessage(response?.status);
       }

@@ -56,13 +56,7 @@ Future<bool> isInternetConnected(BuildContext context,
   return isConnected;
 }
 
-void loading(
-    {var value = "Please wait...",
-    bool isHideKeyboard = true,
-    bool isFormLoading = false}) {
-  if (isHideKeyboard) closeSoftKeyBoard();
-  EasyLoading.show(status: value);
-}
+
 
 void dismissLoading({bool isFormLoading = false}) {
   EasyLoading.dismiss();

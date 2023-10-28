@@ -1,4 +1,6 @@
 import 'package:dog_show/ui/breed_list_page.dart';
+import 'package:dog_show/ui/splash_screen.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -6,11 +8,15 @@ import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  EasyLoading.init();
+  await EasyLocalization.ensureInitialized();
 
   runApp(
-    MyApp(),
+    EasyLocalization(
+      path: 'assets/locales',
+      supportedLocales: const [Locale('en', 'US'),],
+      fallbackLocale: const Locale('en', 'US'),
+      child: const MyApp(),
+    ),
   );
 
   await SystemChrome.setPreferredOrientations([
@@ -26,13 +32,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      builder: EasyLoading.init(),
       theme: ThemeData(
         hintColor: Colors.white,
         appBarTheme: const AppBarTheme(
           elevation: 1,
         ),
       ),
-      home: BreedListPage(),
+      home: SplashScreen(),
     );
   }
 }

@@ -27,8 +27,8 @@ class DogRepository {
     });
   }
 
-  void getRandomByBreed(ResponseCallback<RandomImageModel?, String?> callback) {
-    _apiClient.getRequest(randomByBreedEndPoints, (response, error) {
+  void getRandomByBreed(String url,ResponseCallback<RandomImageModel?, String?> callback) {
+    _apiClient.getRequest(url, (response, error) {
       if (response != null) {
         callback(RandomImageModel.fromJson(response), null);
       } else {
@@ -37,9 +37,9 @@ class DogRepository {
     });
   }
 
-  void getImageListByBreed(
+  void getImageListByBreed(url,
       ResponseCallback<BreedImageLIst?, String?> callback) {
-    _apiClient.getRequest(imageListByBreedEndpoints, (response, error) {
+    _apiClient.getRequest(url, (response, error) {
       if (response != null) {
         callback(BreedImageLIst.fromJson(response), null);
       } else {
@@ -48,8 +48,8 @@ class DogRepository {
     });
   }
 
-  void getSubBreedList(ResponseCallback<SubBreedList?, String?> callback) {
-    _apiClient.getRequest(subBreedListEndPoints, (response, error) {
+  void getSubBreedList(url, ResponseCallback<SubBreedList?, String?> callback) {
+    _apiClient.getRequest(url, (response, error) {
       if (response != null) {
         callback(SubBreedList.fromJson(response), null);
       } else {
@@ -58,9 +58,9 @@ class DogRepository {
     });
   }
 
-  void getRandomBySubBreed(
+  void getRandomBySubBreed(url,
       ResponseCallback<RandomImageModel?, String?> callback) {
-    _apiClient.getRequest(randomBySubBreedList, (response, error) {
+    _apiClient.getRequest(url, (response, error) {
       if (response != null) {
         callback(RandomImageModel.fromJson(response), null);
       } else {
@@ -69,9 +69,9 @@ class DogRepository {
     });
   }
 
-  void getImageListBySubBreed(
+  void getImageListBySubBreed(url,
       ResponseCallback<BreedImageLIst?, String?> callback) {
-    _apiClient.getRequest(listBySubBreedEndPoints, (response, error) {
+    _apiClient.getRequest(url, (response, error) {
       if (response != null) {
         callback(BreedImageLIst.fromJson(response), null);
       } else {
