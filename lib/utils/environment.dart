@@ -3,7 +3,7 @@ enum Environment {
   PRODUCTION,
 }
 
-const Environment activeProfile = Environment.STAGING;
+const Environment activeProfile = Environment.PRODUCTION;
 
 String getBaseUrl() {
   switch (activeProfile) {

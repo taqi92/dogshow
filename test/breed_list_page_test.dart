@@ -1,4 +1,4 @@
-import 'package:dog_show/controller/dogs_controller.dart';
+import 'package:dog_show/controller/breed_controller.dart';
 import 'package:dog_show/model/breed_model.dart';
 import 'package:dog_show/ui/breed_list_page.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +47,7 @@ void main() {
     });
 
     // Create the DogController with the mock repository
-    final controller = DogController();
+    final controller = BreedController();
 
     // Build the widget with the DogController
     await tester.pumpWidget(

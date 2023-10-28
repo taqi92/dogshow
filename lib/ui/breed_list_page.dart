@@ -10,7 +10,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../base/base_state.dart';
-import '../controller/dogs_controller.dart';
+import '../controller/breed_controller.dart';
 import '../utils/enums.dart';
 import 'breed_image_list_page.dart';
 
@@ -22,14 +22,14 @@ class BreedListPage extends StatefulWidget {
 }
 
 class _BreedListPageState extends BaseState<BreedListPage> {
-  final _dogsController = Get.put(DogController());
+  final _breedController = Get.put(BreedController());
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
-    _dogsController.callGetBreedList();
+    _breedController.callGetBreedList();
   }
 
   @override
@@ -38,7 +38,7 @@ class _BreedListPageState extends BaseState<BreedListPage> {
         appBar: myAppBar(title: "breed_list", isNavigate: false,isTranslatable: true),
         backgroundColor: kPrimaryColor,
         body: HeaderComponent(
-          GetBuilder<DogController>(builder: (controller) {
+          GetBuilder<BreedController>(builder: (controller) {
             if (controller.isLoading) {
               return const Center(child: CircularProgressIndicator());
             } else if (controller.isLoaded) {
@@ -51,9 +51,9 @@ class _BreedListPageState extends BaseState<BreedListPage> {
                       childAspectRatio: 0.6 / 0.8,
                       physics: const AlwaysScrollableScrollPhysics(),
                       padding: EdgeInsets.zero,
-                      children: List.generate(_dogsController.breedList.length,
+                      children: List.generate(controller.breedList.length,
                           (index) {
-                        var item = _dogsController.breedList[index];
+                        var item = controller.breedList[index];
                         return Padding(
                             padding: const EdgeInsets.all(4.0),
                             child: Container(
@@ -151,9 +151,9 @@ class _BreedListPageState extends BaseState<BreedListPage> {
                       childAspectRatio: 0.6 / 0.8,
                       physics: const AlwaysScrollableScrollPhysics(),
                       padding: EdgeInsets.zero,
-                      children: List.generate(_dogsController.breedList.length,
+                      children: List.generate(controller.breedList.length,
                           (index) {
-                        var item = _dogsController.breedList[index];
+                        var item = controller.breedList[index];
                         return Padding(
                             padding: const EdgeInsets.all(4.0),
                             child: Container(

@@ -2,15 +2,15 @@ import 'package:dog_show/model/breed_model.dart';
 import 'package:dog_show/utils/environment.dart';
 import 'package:get/get.dart';
 import '../model/dog_class.dart';
-import '../repositories/user_repository.dart';
+import '../repositories/breed_repository.dart';
 import '../utils/constants.dart';
 
-abstract class DogRepositoryInterface {
+abstract class BreedRepositoryInterface {
   void getBreedModel();
 }
 
-class DogController extends GetxController {
-  late final DogRepository _dogRepository;
+class BreedController extends GetxController {
+  late final BreedRepository _breedRepository;
 
   List<String> breedList = [];
   List<String> breedImageList = [];
@@ -24,7 +24,7 @@ class DogController extends GetxController {
 
   @override
   void onInit() {
-    _dogRepository = DogRepository();
+    _breedRepository = BreedRepository();
     super.onInit();
   }
 
@@ -32,7 +32,7 @@ class DogController extends GetxController {
 
     isLoading = true;
 
-    _dogRepository.getBreedModel((response, error) async {
+    _breedRepository.getBreedModel((response, error) async {
       if (response != null) {
 
         isLoading = false;
@@ -57,7 +57,7 @@ class DogController extends GetxController {
     isLoading = true;
     image.value = "";
 
-    _dogRepository.getRandomByBreed(url, (response, error) async {
+    _breedRepository.getRandomByBreed(url, (response, error) async {
 
       isLoading = false;
       isLoaded = true;
@@ -77,7 +77,7 @@ class DogController extends GetxController {
 
     isLoading = true;
 
-    _dogRepository.getImageListByBreed(url, (response, error) async {
+    _breedRepository.getImageListByBreed(url, (response, error) async {
 
       isLoading = false;
       isLoaded = true;
@@ -101,7 +101,7 @@ class DogController extends GetxController {
 
     isLoading = true;
 
-    _dogRepository.getSubBreedList(url, (response, error) async {
+    _breedRepository.getSubBreedList(url, (response, error) async {
 
       isLoading = false;
       isLoaded = true;
@@ -121,48 +121,4 @@ class DogController extends GetxController {
     });
   }
 
-  void callGetRandomImageBySubBreed(String breed, String subBreed) {
-    var url = "/breed/$breed/$subBreed/images/random";
-
-    image.value = "";
-    isLoading = true;
-
-    _dogRepository.getRandomBySubBreed(url, (response, error) async {
-
-      isLoading = false;
-      isLoaded = true;
-
-      if (response != null) {
-        image.value = response.message;
-
-        update();
-      } else {
-        showMessage(response?.status);
-      }
-    });
-  }
-
-  void callGetImageListBySubBreed(String breed, String subBreed) {
-    var url = "/breed/$breed/$subBreed/images";
-
-    isLoading = true;
-
-    _dogRepository.getImageListBySubBreed(url, (response, error) async {
-
-      isLoading = false;
-      isLoaded = true;
-
-      if (response != null) {
-        breedImageList = [];
-
-        response.message?.forEach((element) {
-          breedImageList.add(element);
-
-          update();
-        });
-      } else {
-        showMessage(response?.status);
-      }
-    });
-  }
 }
